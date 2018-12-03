@@ -47,7 +47,7 @@ def main():
     """Start the bot."""
     # Create the EventHandler and pass it your bot's token.
     TOKEN = os.environ["TELEGRAM_TOKEN"]
-    PORT = os.environ.get("PORT", 8443)
+    PORT = int(os.environ.get("PORT", 8443))
     updater = Updater(TOKEN)
 
     # Get the dispatcher to register handlers
