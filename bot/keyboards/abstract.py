@@ -22,7 +22,7 @@ class ReplyKeyboard(object):
     def markup(self):
         keyboard = []
         for option in self.options:
-            if type(option) is str:
+            if type(option) in (str, unicode):
                 keyboard.append([KeyboardButton(option)])
 
             if type(option) is list:
