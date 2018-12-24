@@ -1,7 +1,6 @@
 # encoding: utf-8
 from emoji import emojize
 
-# from handlers.conversation.consts import NOT_HERE, HERE
 from .abstract import ReplyKeyboard, InlineKeyboard, KeyboardData
 
 
@@ -55,9 +54,11 @@ class AttendanceKeyboard(InlineKeyboard):
     ]
 
 
-class GroupTypeKeyboard(ReplyKeyboard):
+class GeneralKeyboard(ReplyKeyboard):
+    def __init__(self, option_list=None, *args, **kwargs):
+        super(GeneralKeyboard, self).__init__(*args, **kwargs)
+        self.option_list = option_list
+
     @property
     def options(self):
-        return ["Users",
-                "Groups",
-                "Cancel"]
+        return self.option_list

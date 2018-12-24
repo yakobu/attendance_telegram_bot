@@ -6,7 +6,8 @@ STATES = AttrDict({
     "REASON": 1,
     "INSERT_NAME": 2,
     "INSERT_PASSWORD": 3,
-    "ADD_GROUP_TYPE": 4,
+    "ADD_GROUP_NAME": 4,
+    "ADD_GROUP_TYPE": 5,
     "END": ConversationHandler.END
 })
 

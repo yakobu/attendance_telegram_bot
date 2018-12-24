@@ -1,6 +1,5 @@
 # encoding: utf-8
 import os
-from datetime import time
 
 from mongoengine import connect
 from telegram.ext import Updater
@@ -46,11 +45,11 @@ class AttendanceTelegramBot(object):
 
     def connect(self):
         self.logger.debug("Connecting to server via webhook..")
-        self.updater.start_webhook(listen="0.0.0.0",
-                                   port=self.port,
-                                   url_path=self.token)
-        self.updater.bot.set_webhook(self.app_uri + self.token)
-        # self.updater.start_polling()
+        # self.updater.start_webhook(listen="0.0.0.0",
+        #                            port=self.port,
+        #                            url_path=self.token)
+        # self.updater.bot.set_webhook(self.app_uri + self.token)
+        self.updater.start_polling()
         self.updater.idle()
 
     def initialize(self):
@@ -82,7 +81,6 @@ class AttendanceTelegramBot(object):
             db_name=self.MONGO_DB)
 
         self.logger.debug("Connectig to %s", mongose_uri)
-
         connect(db=self.MONGO_DB,
                 username=self.MONGO_USER,
                 password=self.MONGO_PASSWORD,
