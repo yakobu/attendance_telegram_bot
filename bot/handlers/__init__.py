@@ -1,6 +1,7 @@
 from commands import StartCommand, StopCommand
-from messages import GetStatusMessage, GetNameMessage
+from messages import GetStatusMessage, GetNameMessage, GetUsersStatusMessage
 from conversation import (SetStatusConversation,
                           SetNameConversation,
                           GetRootPermissionConversation,
-                          AddGroupConversation)
+                          AddGroupConversation,
+                          GetGroupStatus)

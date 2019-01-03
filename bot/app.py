@@ -12,7 +12,9 @@ from handlers import (GetRootPermissionConversation,
                       SetStatusConversation,
                       GetStatusMessage,
                       GetNameMessage,
-                      SetNameConversation)
+                      SetNameConversation,
+                      GetGroupStatus,
+                      GetUsersStatusMessage)
 
 
 class AttendanceTelegramBot(object):
@@ -23,15 +25,16 @@ class AttendanceTelegramBot(object):
     MONGO_PASSWORD = os.environ["MONGO_PASSWORD"]
 
     HANDLERS = [
-        StartCommand,
         SetStatusConversation,
+        StartCommand,
         AddGroupConversation,
         SetNameConversation,
         GetRootPermissionConversation,
+        GetGroupStatus,
         GetStatusMessage,
         GetNameMessage,
-        StopCommand,
-    ]
+        GetUsersStatusMessage,
+        StopCommand]
 
     def __init__(self, token, port, app_uri):
         self.logger = logger

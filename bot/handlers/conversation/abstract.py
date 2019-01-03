@@ -23,7 +23,7 @@ class Conversation(ConversationHandler):
         super(Conversation, self).__init__(entry_points=self.start_triggers,
                                            states=self.states_options,
                                            fallbacks=self.fallbacks_oprtions,
-                                           ** kwargs)
+                                           **kwargs)
 
     def unhandled_message(self, bot, update):
         """"""

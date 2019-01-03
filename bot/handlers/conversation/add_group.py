@@ -94,6 +94,7 @@ class AddGroupConversation(Conversation):
                         'keyboard:shit:', use_aliases=True))
             return
         group.manager = selected_user
+        group.manager.is_manager = True
 
         markup = GeneralKeyboard(option_list=self.GROUP_TYPES).markup
         update.message.reply_text('OK, what kind of group?',
@@ -143,8 +144,11 @@ class AddGroupConversation(Conversation):
                                   manager=chat_data["admin"].is_manager).markup
             update.message.reply_text(emojize(":thumbsup:", use_aliases=True),
                                       reply_markup=markup)
+
+            group.manager.save()
             group.save()
             chat_data.clear()
+            self.update_group_manager_keyboard(bot, group.manager, group.name)
             return STATES.END
 
         if message_text not in self.posibole_items(group):
@@ -201,3 +205,11 @@ class AddGroupConversation(Conversation):
                              id != manager_id]
 
         return posible_items
+
+    def update_group_manager_keyboard(self, bot, manager, group_name):
+        markup = ManuKeyboard(admin=manager.is_admin,
+                              manager=manager.is_manager).markup
+        bot.send_message(chat_id=manager.id,
+                         text='From now on you are manager of {group_name}'.
+                         format(group_name=group_name),
+                         reply_markup=markup)

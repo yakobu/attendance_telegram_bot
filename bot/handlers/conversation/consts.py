@@ -10,6 +10,7 @@ STATES = AttrDict({
     "ADD_GROUP_TYPE": 5,
     "ADD_GROUP_ITEMS": 6,
     "ADD_GROUP_MANAGER": 7,
+    "SELECT_GROUP": 8,
     "END": ConversationHandler.END
 })
 

@@ -13,7 +13,6 @@ from handlers.conversation.consts import HERE, NOT_HERE, STATES
 from keyboards import AttendanceKeyboard, ManuKeyboard, NotHereRasonsKeyboard
 
 
-
 class SetStatusConversation(Conversation):
     """Set User status."""
     @property
