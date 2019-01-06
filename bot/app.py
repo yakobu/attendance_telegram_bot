@@ -5,14 +5,15 @@ from mongoengine import connect
 from telegram.ext import Updater
 
 from default_logger import logger
-from handlers import (GetRootPermissionConversation,
-                      AddGroupConversation,
+from handlers import (Conversation,
+                      GetRootPermission,
+                      AddGroup,
                       StartCommand,
                       StopCommand,
-                      SetStatusConversation,
+                      SetStatus,
                       GetStatusMessage,
                       GetNameMessage,
-                      SetNameConversation,
+                      SetName,
                       GetGroupStatus,
                       GetUsersStatusMessage)
 
@@ -24,13 +25,16 @@ class AttendanceTelegramBot(object):
     MONGO_USER = os.environ["MONGO_USER"]
     MONGO_PASSWORD = os.environ["MONGO_PASSWORD"]
 
-    HANDLERS = [
-        SetStatusConversation,
-        StartCommand,
-        AddGroupConversation,
-        SetNameConversation,
-        GetRootPermissionConversation,
+    CONVERSATION_TYPES = [
+        SetStatus,
+        AddGroup,
+        SetName,
+        GetRootPermission,
         GetGroupStatus,
+    ]
+
+    HANDLERS = [
+        StartCommand,
         GetStatusMessage,
         GetNameMessage,
         GetUsersStatusMessage,
@@ -48,14 +52,17 @@ class AttendanceTelegramBot(object):
 
     def connect(self):
         self.logger.debug("Connecting to server via webhook..")
-        self.updater.start_webhook(listen="0.0.0.0",
-                                   port=self.port,
-                                   url_path=self.token)
-        self.updater.bot.set_webhook(self.app_uri + self.token)
-        # self.updater.start_polling()
+        # self.updater.start_webhook(listen="0.0.0.0",
+        #                            port=self.port,
+        #                            url_path=self.token)
+        # self.updater.bot.set_webhook(self.app_uri + self.token)
+        self.updater.start_polling()
         self.updater.idle()
 
     def initialize(self):
+        conversation = Conversation(types=self.CONVERSATION_TYPES)
+        self.dp.add_handler(conversation)
+
         for command in self.HANDLERS:
             self.logger.debug("Initializing %s command", command.__name__)
             self.dp.add_handler(command())

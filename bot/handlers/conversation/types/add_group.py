@@ -6,7 +6,7 @@ from telegram import ReplyKeyboardRemove
 from telegram.ext import RegexHandler, MessageHandler, Filters
 
 from models import Group, User
-from .abstract import Conversation
+from .abstarct import ConversationType
 from handlers.conversation.consts import STATES
 from handlers.utils import restricted_for_admin
 from keyboards import (AttendanceKeyboard,
@@ -15,11 +15,10 @@ from keyboards import (AttendanceKeyboard,
                        GeneralKeyboard)
 
 
-class AddGroupConversation(Conversation):
-    """Set User status."""
-
+class AddGroup(ConversationType):
+    """"""
     @property
-    def start_triggers(self):
+    def entry_points(self):
         return [
             RegexHandler(pattern="Add Group",
                          callback=self.send_request_for_group_name,
@@ -27,7 +26,7 @@ class AddGroupConversation(Conversation):
         ]
 
     @property
-    def states_options(self):
+    def states(self):
         return {
             STATES.ADD_GROUP_NAME: [
                 MessageHandler(filters=Filters.text,

@@ -7,16 +7,16 @@ from telegram.ext import (RegexHandler,
                           MessageHandler,
                           Filters)
 
-from .abstract import Conversation
+from .abstarct import ConversationType
 from models import Status, Report, User
 from handlers.conversation.consts import HERE, NOT_HERE, STATES
 from keyboards import AttendanceKeyboard, ManuKeyboard, NotHereRasonsKeyboard
 
 
-class SetStatusConversation(Conversation):
+class SetStatus(ConversationType):
     """Set User status."""
     @property
-    def start_triggers(self):
+    def entry_points(self):
         return [
             RegexHandler(pattern="Set Status",
                          callback=self.send_status_keyboard),
@@ -27,7 +27,7 @@ class SetStatusConversation(Conversation):
         ]
 
     @property
-    def states_options(self):
+    def states(self):
         return {
             STATES.STATUS: [
                 CallbackQueryHandler(pattern=HERE,

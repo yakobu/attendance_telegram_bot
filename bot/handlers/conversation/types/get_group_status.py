@@ -7,7 +7,7 @@ from emoji import emojize
 from telegram.ext import RegexHandler, MessageHandler, Filters
 
 from models import Group, User, Report
-from .abstract import Conversation
+from .abstarct import ConversationType
 from handlers.conversation.consts import STATES
 from handlers.utils import restricted_for_manager
 from keyboards import (AttendanceKeyboard,
@@ -16,11 +16,11 @@ from keyboards import (AttendanceKeyboard,
                        GeneralKeyboard)
 
 
-class GetGroupStatus(Conversation):
+class GetGroupStatus(ConversationType):
     """Set User status."""
 
     @property
-    def start_triggers(self):
+    def entry_points(self):
         return [
             RegexHandler(pattern="Get Group Status",
                          callback=self.group_status,
@@ -28,7 +28,7 @@ class GetGroupStatus(Conversation):
         ]
 
     @property
-    def states_options(self):
+    def states(self):
         return {
             STATES.SELECT_GROUP: [
                 MessageHandler(filters=Filters.text,

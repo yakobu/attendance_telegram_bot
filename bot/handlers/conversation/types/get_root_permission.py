@@ -6,24 +6,24 @@ from telegram.ext import RegexHandler, Filters, MessageHandler
 
 
 from models import User
-from .abstract import Conversation
 from keyboards import ManuKeyboard
+from .abstarct import ConversationType
 from handlers.conversation.consts import STATES
 
 
-class GetRootPermissionConversation(Conversation):
+class GetRootPermission(ConversationType):
     """"""
     PASSWORD = os.environ["PASSWORD"]
 
     @property
-    def start_triggers(self):
+    def entry_points(self):
         return [
             RegexHandler(pattern="Get Root Permission",
                          callback=self.send_request_for_password)
         ]
 
     @property
-    def states_options(self):
+    def states(self):
         return {
             STATES.INSERT_PASSWORD: [
                 MessageHandler(filters=Filters.text,

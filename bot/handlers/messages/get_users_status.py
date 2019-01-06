@@ -6,7 +6,7 @@ from datetime import datetime
 
 from emoji import emojize
 
-from models import Report,User
+from models import Report, User
 
 from .abstract import RegexMessage
 from keyboards import ManuKeyboard
@@ -93,4 +93,3 @@ class GetUsersStatusMessage(RegexMessage):
         user_status_report = "\n".join(statuses)
         update.message.reply_text(emojize(user_status_report, use_aliases=True),
                                   reply_markup=reply_markup)
-

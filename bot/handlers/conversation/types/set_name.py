@@ -1,24 +1,27 @@
+# encoding: utf-8
+from __future__ import unicode_literals
+
 from emoji import emojize
 from telegram import ReplyKeyboardRemove, ParseMode
 from telegram.ext import RegexHandler, MessageHandler, Filters
 
 from models import User
 from keyboards import ManuKeyboard
-from .abstract import Conversation
+from .abstarct import ConversationType
 from handlers.conversation.consts import STATES
 
 
-class SetNameConversation(Conversation):
+class SetName(ConversationType):
     """"""
     USER_NAME_MESSAGE_FORMAT = "{header}\n{name}".decode("utf-8")
 
     @property
-    def start_triggers(self):
+    def entry_points(self):
         return [RegexHandler(pattern="Set Name",
                              callback=self.get_name_request)]
 
     @property
-    def states_options(self):
+    def states(self):
         return {
             STATES.INSERT_NAME: [
                 MessageHandler(filters=Filters.text,
