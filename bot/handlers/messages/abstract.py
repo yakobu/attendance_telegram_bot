@@ -31,9 +31,11 @@ class RegexMessage(RegexHandler):
         raise NotImplementedError("You cannot access abstract method")
 
     def handler(self, bot, update):
-        self.logger.debug("got message: %s", update.message.text)
-
         user_id = update.message.chat.id
+        self.logger.debug("got message: %s from %s",
+                          update.message.text,
+                          user_id)
+
         user = User.objects(id=user_id).first()
 
         if user is not None:

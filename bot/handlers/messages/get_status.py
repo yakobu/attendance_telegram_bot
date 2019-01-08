@@ -1,3 +1,6 @@
+# encoding: utf-8
+from __future__ import unicode_literals
+
 from datetime import datetime
 
 from emoji import emojize
@@ -34,24 +37,21 @@ class GetStatusMessage(RegexMessage):
         return all_user_statuses
 
     def status_message_response(self, update, date, state, reason, user):
-        message = self.STATUS_MESSAGE_FORMAT.format(
-            date=date,
-            state=state.encode("utf-8"),
-            reason=reason.encode("utf-8"))
+        message = self.STATUS_MESSAGE_FORMAT.format(date=date,
+                                                    state=state,
+                                                    reason=reason)
 
         reply_markup = ManuKeyboard(admin=user.is_admin,
                                     manager=user.is_manager).markup
-        update.message.reply_text(text=emojize(message.decode("utf-8"),
-                                               use_aliases=True),
+        update.message.reply_text(text=emojize(message, use_aliases=True),
                                   parse_mode=ParseMode.MARKDOWN,
                                   reply_markup=reply_markup)
 
     def _callback(self, bot, update, user):
-        self.logger.debug("got message: %s", update.message.text)
-
         now = datetime.now().date()
         formated_day = now.strftime(self.DATE_FORMAT)
         user_id = update.message.chat.id
+
         report = Report.objects(date=now).first()
 
         user_statuses = self.user_statuses(report, user_id)

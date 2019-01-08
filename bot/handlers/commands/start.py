@@ -1,3 +1,6 @@
+# encoding: utf-8
+from __future__ import unicode_literals
+
 from models.user import User
 from abstract import Command
 from keyboards import ManuKeyboard
@@ -27,6 +30,5 @@ class StartCommand(Command):
         keyboard = ManuKeyboard(admin=user.is_admin,
                                 manager=user.is_manager).markup
 
-        update.message.reply_text('You have been mounted successfully, '
-                                  'type /help for more commands.',
+        update.message.reply_text('You have been mounted successfully',
                                   reply_markup=keyboard)
