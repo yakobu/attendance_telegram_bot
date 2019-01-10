@@ -1,9 +1,13 @@
 # encoding: utf-8
 import os
+from datetime import time
 
+from emoji import emojize
 from mongoengine import connect
 from telegram.ext import Updater
 
+from models import User
+from keyboards import AttendanceKeyboard
 from default_logger import logger
 from handlers import (Conversation,
                       GetRootPermission,
@@ -70,15 +74,22 @@ class AttendanceTelegramBot(object):
         # log all errors
         self.dp.add_error_handler(self.on_error)
 
-        # self.job_queue.run_daily(callback=self.daily_reminder,
-        #                          time=time(18, 53),
-        #                          days=(0, 1, 2, 3, 4),
-        #                          context=None,
-        #                          name="daily_reminder")
+        self.job_queue.run_daily(callback=self.daily_reminder,
+                                 time=time(7, 30),
+                                 days=(0, 1, 2, 3, 4),
+                                 context=None,
+                                 name="daily_reminder")
 
-    # def daily_reminder(self, bot, update):
-    #     bot.send_message(chat_id=self.MANAGER_ID,
-    #                      text='Sending messages with increasing delay up to 10s, then stops.')
+    def daily_reminder(self, bot, update):
+        attendance_message = emojize(
+            "Have a nice day:innocent: what is your status:interrobang:",
+            use_aliases=True)
+        markup = AttendanceKeyboard.markup()
+        for user_id in User.objects.values_list("id"):
+            self.logger.debug("Send message to %s", user_id)
+            bot.send_message(chat_id=user_id,
+                             text=attendance_message,
+                             reply_markup=markup)
 
     def on_error(self, bot, update, error):
         """Log Errors caused by Updates."""
