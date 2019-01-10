@@ -61,7 +61,7 @@ class GetUsersStatusMessage(RegexMessage):
         statuses = []
 
         if len(here) != 0:
-            users = ["\t\t\t:bust_in_silhouette: {name}".format(name=user_name)
+            users = ["\u200E\t\t\t:bust_in_silhouette: {name}".format(name=user_name)
                      for user_name in
                      here]
             statuses.append(self.STATUS_PATTERN.format(
@@ -71,7 +71,7 @@ class GetUsersStatusMessage(RegexMessage):
 
         if len(not_here) != 0:
             users = [
-                "\t\t\t:bust_in_silhouette: {name}:\n\t\t\t\t:pencil2:{reason}".format(
+                "\u200E\t\t\t:bust_in_silhouette: {name}\n\u200E\t\t\t\t\t\t\t:pencil2:{reason}".format(
                     name=user_name, reason=reason)
                 for user_name, reason in not_here]
             statuses.append(self.STATUS_PATTERN.format(
@@ -80,7 +80,7 @@ class GetUsersStatusMessage(RegexMessage):
                 users="\n".join(users)))
 
         if len(not_specified) != 0:
-            users = ["\t\t\t:bust_in_silhouette: {name}".format(name=user_name)
+            users = ["\u200E\t\t\t:bust_in_silhouette: {name}".format(name=user_name)
                      for user_name in
                      not_specified]
             statuses.append(self.STATUS_PATTERN.format(
