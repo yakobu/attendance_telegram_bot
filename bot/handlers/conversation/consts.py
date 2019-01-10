@@ -11,6 +11,7 @@ STATES = AttrDict({
     "ADD_GROUP_ITEMS": 6,
     "ADD_GROUP_MANAGER": 7,
     "SELECT_GROUP": 8,
+    "BROADCAST_MESSAGE": 9,
     "END": ConversationHandler.END
 })
 

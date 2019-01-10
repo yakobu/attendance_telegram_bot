@@ -5,4 +5,5 @@ from conversation import (SetStatus,
                           GetRootPermission,
                           AddGroup,
                           GetGroupStatus,
-                          Conversation)
+                          Conversation,
+                          Broadcast)

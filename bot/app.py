@@ -19,7 +19,8 @@ from handlers import (Conversation,
                       GetNameMessage,
                       SetName,
                       GetGroupStatus,
-                      GetUsersStatusMessage)
+                      GetUsersStatusMessage,
+                      Broadcast)
 
 
 class AttendanceTelegramBot(object):
@@ -35,6 +36,7 @@ class AttendanceTelegramBot(object):
         SetName,
         GetRootPermission,
         GetGroupStatus,
+        Broadcast,
     ]
 
     HANDLERS = [

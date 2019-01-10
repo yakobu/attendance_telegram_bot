@@ -38,6 +38,7 @@ class ManuKeyboard(ReplyKeyboard):
                         "Get Root Permission"]
         if self.admin:
             all_commands.append("Add Group")
+            all_commands.append("Broadcast")
             all_commands.append("Get Users Status")
             all_commands.remove("Get Root Permission")
 
