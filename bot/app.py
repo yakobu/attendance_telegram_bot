@@ -77,7 +77,7 @@ class AttendanceTelegramBot(object):
         self.dp.add_error_handler(self.on_error)
 
         self.job_queue.run_daily(callback=self.daily_reminder,
-                                 time=time(7, 30),
+                                 time=time(7, 0),
                                  days=(0, 1, 2, 3, 4),
                                  context=None,
                                  name="daily_reminder")
