@@ -1,14 +1,12 @@
 import datetime
 from mongoengine import (EmbeddedDocument,
-                         ReferenceField,
                          StringField,
-                         DateTimeField)
-
-from models.user import User
+                         DateTimeField, IntField)
 
 
 class Status(EmbeddedDocument):
-    user = ReferenceField(User)
+    user_id = IntField()
+    user_name = StringField(max_length=200, required=True)
     state = StringField()
     reason = StringField()
     date_modified = DateTimeField(default=datetime.datetime.utcnow)

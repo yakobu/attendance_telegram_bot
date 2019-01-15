@@ -48,7 +48,7 @@ class GetGroupStatus(ConversationType):
             return None
 
         for status in report.statuses[::-1]:
-            if status.user.id == user_id:
+            if status.user_id == user_id:
                 return status
 
         return None

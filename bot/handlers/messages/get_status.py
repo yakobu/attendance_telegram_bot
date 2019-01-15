@@ -31,7 +31,7 @@ class GetStatusMessage(RegexMessage):
             return all_user_statuses
 
         for status in report.statuses:
-            if status.user.id == user_id:
+            if status.user_id == user_id:
                 all_user_statuses.append(status)
 
         return all_user_statuses

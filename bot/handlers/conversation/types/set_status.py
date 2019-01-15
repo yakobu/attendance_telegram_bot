@@ -58,10 +58,12 @@ class SetStatus(ConversationType):
         """Save User status has present."""
         chat = update.callback_query.message.chat
         user = User.objects(id=chat.id).first()
-        status = Status(state=HERE, reason="Present", user=chat.id)
+        status = Status(state=HERE,
+                        reason="Present",
+                        user_id=chat.id,
+                        user_name=user.name)
 
-        Report.objects(date=datetime.now().date()). \
-            update(add_to_set__statuses=status, upsert=True)
+        Report.objects.add_status(date=datetime.now().date(), status=status)
 
         bot.edit_message_text(
             chat_id=chat.id,
@@ -98,10 +100,10 @@ class SetStatus(ConversationType):
         user = User.objects(id=chat.id).first()
         status = Status(state=NOT_HERE,
                         reason=update.message.text,
-                        user=chat.id)
+                        user_id=chat.id,
+                        user_name=user.name)
 
-        Report.objects(date=datetime.now().date()). \
-            update(add_to_set__statuses=status, upsert=True)
+        Report.objects.add_status(date=datetime.now().date(), status=status)
 
         reply_markup = ManuKeyboard(admin=user.is_admin,
                                     manager=user.is_manager).markup
